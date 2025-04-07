@@ -15,7 +15,17 @@ def solve_equation():
     for i, eq in enumerate(equations):
         print(f"{i + 1}. {eq['description']}")
 
-    eq_index = int(input("Номер уравнения: ")) - 1
+    # Защищаем ввод от ошибок преобразования в число
+    while True:
+        try:
+            eq_index = int(input("Номер уравнения: ")) - 1
+            if eq_index < 0 or eq_index >= len(equations):
+                print("Неверный номер уравнения. Попробуйте снова.")
+                continue
+            break
+        except ValueError:
+            print("Неверный ввод. Пожалуйста, введите число.")
+
     equation = equations[eq_index]
     f = equation["function"]
 
@@ -26,12 +36,26 @@ def solve_equation():
     print("1. Метод половинного деления")
     print("2. Метод секущих")
     print("3. Метод простой итерации")
-    method_choice = input("Ваш выбор: ")
+
+    # Защищаем ввод метода
+    while True:
+        method_choice = input("Ваш выбор: ")
+        if method_choice in ["1", "2", "3"]:
+            break
+        else:
+            print("Неверный выбор метода. Пожалуйста, выберите 1, 2 или 3.")
 
     print("\nВыберите способ ввода данных:")
     print("1. С клавиатуры")
     print("2. Из файла")
-    input_method = input("Ваш выбор: ")
+
+    # Защищаем ввод способа ввода данных
+    while True:
+        input_method = input("Ваш выбор: ")
+        if input_method in ["1", "2"]:
+            break
+        else:
+            print("Неверный выбор способа ввода. Пожалуйста, выберите 1 или 2.")
 
     if input_method == "1":
         a, b, eps = input_from_keyboard(single=True)
@@ -56,7 +80,14 @@ def solve_equation():
     print("\nКуда вывести результат?")
     print("1. На экран")
     print("2. В файл")
-    out = input("Ваш выбор: ")
+
+    # Защищаем выбор вывода результата
+    while True:
+        out = input("Ваш выбор: ")
+        if out in ["1", "2"]:
+            break
+        else:
+            print("Неверный выбор. Пожалуйста, выберите 1 или 2.")
 
     if out == "1":
         output_to_screen(root, fval, iters)
@@ -69,7 +100,17 @@ def solve_system():
     for i, sys in enumerate(systems):
         print(f"{i + 1}. {sys['description']}")
 
-    sys_index = int(input("Номер системы: ")) - 1
+    # Защищаем ввод от ошибок и проверяем, что индекс находится в допустимом диапазоне
+    while True:
+        try:
+            sys_index = int(input("Номер системы: ")) - 1
+            if sys_index < 0 or sys_index >= len(systems):
+                print(f"Неверный номер системы. Пожалуйста, введите число от 1 до {len(systems)}.")
+                continue
+            break
+        except ValueError:
+            print("Неверный ввод. Пожалуйста, введите число.")
+
     system = systems[sys_index]
     funcs = system["functions"]  # funcs теперь это список функций
     # Показываем график системы
@@ -78,7 +119,14 @@ def solve_system():
     print("\nВыберите способ ввода данных:")
     print("1. С клавиатуры")
     print("2. Из файла")
-    input_method = input("Ваш выбор: ")
+
+    # Защищаем ввод способа ввода данных
+    while True:
+        input_method = input("Ваш выбор: ")
+        if input_method in ["1", "2"]:
+            break
+        else:
+            print("Неверный выбор способа ввода. Пожалуйста, выберите 1 или 2.")
 
     if input_method == "1":
         x0, y0, eps = input_from_keyboard(single=False)
@@ -91,7 +139,14 @@ def solve_system():
     print("\nКуда вывести результат?")
     print("1. На экран")
     print("2. В файл")
-    out = input("Ваш выбор: ")
+
+    # Защищаем выбор вывода результата
+    while True:
+        out = input("Ваш выбор: ")
+        if out in ["1", "2"]:
+            break
+        else:
+            print("Неверный выбор. Пожалуйста, выберите 1 или 2.")
 
     if out == "1":
         output_to_screen(root_vec, fval, iters)
@@ -100,18 +155,23 @@ def solve_system():
 
 
 def main():
-    print("Выберите тип задачи:")
-    print("1. Нелинейное уравнение")
-    print("2. Система нелинейных уравнений")
+    while True:
+        print("\nВыберите тип задачи:")
+        print("1. Нелинейное уравнение")
+        print("2. Система нелинейных уравнений")
+        print("3. Выход")
 
-    mode = input("Ваш выбор: ")
+        mode = input("Ваш выбор: ")
 
-    if mode == "1":
-        solve_equation()
-    elif mode == "2":
-        solve_system()
-    else:
-        print("Неизвестный режим.")
+        if mode == "1":
+            solve_equation()
+        elif mode == "2":
+            solve_system()
+        elif mode == "3":
+            print("Выход из программы.")
+            break
+        else:
+            print("Неизвестный режим.")
 
 
 if __name__ == "__main__":
