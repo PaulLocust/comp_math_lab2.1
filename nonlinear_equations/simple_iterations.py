@@ -1,5 +1,4 @@
 import numdifftools as nd
-import numpy as np
 
 MAX_ITERS = 50_000
 

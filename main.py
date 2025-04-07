@@ -1,11 +1,13 @@
+import numpy as np
+
 from functions import equations, systems
 from io_handler import input_from_keyboard, input_from_file, output_to_screen, output_to_file
 from nonlinear_equations.simple_iterations import simple_iteration_method
 from nonlinear_equations.bisection import bisection_method
-#from nonlinear_equations.secant import secant_method
-#from nonlinear_systems.newton import newton_method_system
-from validators import has_root, check_convergence_simple_iteration, choose_initial_guess
+from nonlinear_equations.secant import secant_method
+from nonlinear_systems.newton import newton_method_system
 from plotting import plot_function, plot_system
+from validators import has_root, check_convergence_simple_iteration, choose_initial_guess
 
 
 def solve_equation():
@@ -69,11 +71,9 @@ def solve_system():
 
     sys_index = int(input("Номер системы: ")) - 1
     system = systems[sys_index]
-    funcs = system["functions"]
-    jacobian = system["jacobian"]
-
-    # График системы
-    plot_system(funcs[0], funcs[1])
+    funcs = system["functions"]  # funcs теперь это список функций
+    # Показываем график системы
+    plot_system(funcs, x_range=(-5, 5), y_range=(-5, 5))  # Передаем список функций
 
     print("\nВыберите способ ввода данных:")
     print("1. С клавиатуры")
@@ -85,7 +85,8 @@ def solve_system():
     else:
         x0, y0, eps = input_from_file(single=False)
 
-    root_vec, fval, iters = newton_method_system(funcs, jacobian, [x0, y0], eps)
+    # Передаем систему функций и начальное приближение
+    root_vec, fval, iters = newton_method_system(funcs, [x0, y0], eps)
 
     print("\nКуда вывести результат?")
     print("1. На экран")

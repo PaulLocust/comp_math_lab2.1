@@ -1,7 +1,7 @@
 import numpy as np
 
 
-# ===== НЕЛИНЕЙНЫЕ УРАВНЕНИЯ =====
+# НЕЛИНЕЙНЫЕ УРАВНЕНИЯ
 
 def f1(x):
     return x ** 3 + 4.81 * x ** 2 - 17.37 * x + 5.38
@@ -31,13 +31,25 @@ equations = [
 ]
 
 
-# ===== СИСТЕМЫ НЕЛИНЕЙНЫХ УРАВНЕНИЙ =====
+# СИСТЕМЫ НЕЛИНЕЙНЫХ УРАВНЕНИЙ
 
 # Система 1:
+# sin(y) + 2x - 2 = 0
+# y + cos(x - 1) - 0.7 = 0
+
+def system1_funcs(vars):
+    x, y = vars
+    return np.array([
+        np.sin(y) + 2 * x - 2,
+        y + np.cos(x - 1) - 0.7
+    ])
+
+
+# Система 2:
 # x^2 + y^2 - 1 = 0
 # x - y = 0
 
-def system1_funcs(vars):
+def system2_funcs(vars):
     x, y = vars
     return np.array([
         x ** 2 + y ** 2 - 1,
@@ -45,25 +57,13 @@ def system1_funcs(vars):
     ])
 
 
-# Система 2:
-# sin(x + y) - x = 0
-# y - cos(x) = 0
-
-def system2_funcs(vars):
-    x, y = vars
-    return np.array([
-        np.sin(x + y) - x,
-        y - np.cos(x)
-    ])
-
-
 systems = [
     {
-        "description": "Система 1: x² + y² = 1, x = y",
+        "description": "Система 1: sin(y) + 2x = 2, y + cos(x - 1) = 0.7",
         "functions": system1_funcs,
     },
     {
-        "description": "Система 2: sin(x + y) = x, y = cos(x)",
+        "description": "Система 2: x² + y² = 1, x = y",
         "functions": system2_funcs,
-    }
+    },
 ]
