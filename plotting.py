@@ -29,10 +29,9 @@ def plot_system(f1, f2, x_range=(-5, 5), y_range=(-5, 5), title="Графики 
         Z2 = f2(X, Y)
 
         plt.figure(figsize=(8, 6))
-        cs1 = plt.contour(X, Y, Z1, levels=[0], colors='blue', linewidths=2, label='f1(x, y)=0')
-        cs2 = plt.contour(X, Y, Z2, levels=[0], colors='red', linewidths=2, label='f2(x, y)=0')
+        cs1 = plt.contour(X, Y, Z1, levels=[0], colors='blue', linewidths=2)
+        cs2 = plt.contour(X, Y, Z2, levels=[0], colors='red', linewidths=2)
 
-        # Создаём легенду вручную
         lines = [
             plt.Line2D([0], [0], color='blue', label='f1(x, y) = 0'),
             plt.Line2D([0], [0], color='red', label='f2(x, y) = 0'),

@@ -1,8 +1,9 @@
-from nonlinear_equations import *
 
 from functions import equations, systems
 from io_handler import input_from_keyboard, input_from_file, output_to_screen, output_to_file
+from nonlinear_equations.simple_iterations import simple_iteration_method
 from validators import has_root, check_convergence_simple_iteration, choose_initial_guess
+from plotting import plot_function
 
 
 def solve_equation():
@@ -13,6 +14,9 @@ def solve_equation():
     eq_index = int(input("Номер уравнения: ")) - 1
     equation = equations[eq_index]
     f = equation["function"]
+
+    # Показываем график функции
+    plot_function(f, -10, 10, title=f"График: {equation['description']}")
 
     print("\nВыберите метод:")
     print("1. Метод половинного деления")
@@ -40,7 +44,8 @@ def solve_equation():
         root, fval, iters = secant_method(f, a, b, eps)
     elif method_choice == "3":
         x0 = choose_initial_guess(f, a, b)
-        root, fval, iters = simple_iteration_method(equation["phi"], f, x0, eps)
+
+        root, fval, iters = simple_iteration_method(f, x0, a, b, eps)
     else:
         print("Неизвестный метод.")
         return
