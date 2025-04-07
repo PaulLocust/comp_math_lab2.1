@@ -1,4 +1,3 @@
-import numpy as np
 
 from functions import equations, systems
 from io_handler import input_from_keyboard, input_from_file, output_to_screen, output_to_file
@@ -7,7 +6,7 @@ from nonlinear_equations.bisection import bisection_method
 from nonlinear_equations.secant import secant_method
 from nonlinear_systems.newton import newton_method_system
 from plotting import plot_function, plot_system
-from validators import has_root, check_convergence_simple_iteration, choose_initial_guess
+from validators import has_root, choose_initial_guess
 
 
 def solve_equation():
