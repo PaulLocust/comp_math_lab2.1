@@ -1,6 +1,7 @@
 
 from functions import equations, systems
-from io_handler import input_from_keyboard, input_from_file, output_to_screen, output_to_file
+from io_handler import input_from_keyboard, input_from_file, output_to_screen, output_to_file, output_system_to_screen, \
+    output_system_to_file
 from nonlinear_equations.simple_iterations import simple_iteration_method
 from nonlinear_equations.bisection import bisection_method
 from nonlinear_equations.secant import secant_method
@@ -133,7 +134,7 @@ def solve_system():
         x0, y0, eps = input_from_file(single=False)
 
     # Передаем систему функций и начальное приближение
-    root_vec, fval, iters = newton_method_system(funcs, [x0, y0], eps)
+    root_vec, fval, iters, delta = newton_method_system(funcs, [x0, y0], eps)
 
     print("\nКуда вывести результат?")
     print("1. На экран")
@@ -148,9 +149,9 @@ def solve_system():
             print("Неверный выбор. Пожалуйста, выберите 1 или 2.")
 
     if out == "1":
-        output_to_screen(root_vec, fval, iters)
+        output_system_to_screen(root_vec, fval, iters, delta)
     else:
-        output_to_file(root_vec, fval, iters)
+        output_system_to_file(root_vec, fval, iters, delta)
 
 
 def main():

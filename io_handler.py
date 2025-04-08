@@ -46,6 +46,14 @@ def output_to_screen(root, f_val, iterations):
     print(f"Число итераций: {iterations}")
 
 
+def output_system_to_screen(root, f_val, iterations, delta):
+    print("\nРезультат:")
+    print(f"Найденный корень/вектор: {root}")
+    print(f"Значение функции в корне: {f_val}")
+    print(f"Число итераций: {iterations}")
+    print(f"Вектор погрешностей: {delta}")
+
+
 def output_to_file(root, f_val, iterations, filename='data/output.txt'):
     try:
         with open(filename, 'w') as file:
@@ -57,3 +65,17 @@ def output_to_file(root, f_val, iterations, filename='data/output.txt'):
     except Exception as e:
         print(f" Ошибка при записи в файл: {e}")
         output_to_screen(root, f_val, iterations)
+
+
+def output_system_to_file(root, f_val, iterations, delta, filename='data/output.txt'):
+    try:
+        with open(filename, 'w') as file:
+            file.write("Результат вычислений:\n")
+            file.write(f"Найденный корень/вектор: {root}\n")
+            file.write(f"Значение функции в корне: {f_val}\n")
+            file.write(f"Число итераций: {iterations}\n")
+            file.write(f"Вектор погрешностей: {delta}\n")
+        print(f"\n Результаты сохранены в файл: {filename}")
+    except Exception as e:
+        print(f" Ошибка при записи в файл: {e}")
+        output_system_to_screen(root, f_val, iterations, delta)
