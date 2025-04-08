@@ -18,7 +18,7 @@ def check_convergence_simple_iteration(f, phi, a, b):
     return True
 
 
-def simple_iteration_method(f, x0, a=None, b=None, epsilon=1e-5, max_iters=MAX_ITERS, log=True):
+def simple_iteration_method(f, x0, a, b, epsilon=1e-5, max_iters=MAX_ITERS, log=True):
     """
     Метод простой итерации. Автоматически строит phi(x) = x - λ*f(x).
     :param f: функция
@@ -42,10 +42,9 @@ def simple_iteration_method(f, x0, a=None, b=None, epsilon=1e-5, max_iters=MAX_I
     # Построим phi(x)
     phi = lambda x: x - lambda_ * f(x)
 
-    # Проверим сходимость (если есть границы)
-    if a is not None and b is not None:
-        if not check_convergence_simple_iteration(f, phi, a, b):
-            return None, None, 0
+    # Проверим сходимость
+    if not check_convergence_simple_iteration(f, phi, a, b):
+        return None, None, 0
 
     # Итерации
     x = x0
