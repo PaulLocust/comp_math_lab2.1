@@ -1,15 +1,23 @@
+def safe_float_input(prompt):
+    while True:
+        try:
+            return float(input(prompt).replace(',', '.'))
+        except ValueError:
+            print("Неверный ввод. Пожалуйста, введите число (например, 2.5 или 2,5).")
+
+
 def input_from_keyboard(single=True):
     print("\nВведите данные:")
 
     if single:
-        a = float(input("Левая граница интервала a: "))
-        b = float(input("Правая граница интервала b: "))
-        eps = float(input("Точность (ε): "))
+        a = safe_float_input("Левая граница интервала a: ")
+        b = safe_float_input("Правая граница интервала b: ")
+        eps = safe_float_input("Точность (ε): ")
         return a, b, eps
     else:
-        x0 = float(input("Начальное приближение x0: "))
-        y0 = float(input("Начальное приближение y0: "))
-        eps = float(input("Точность (ε): "))
+        x0 = safe_float_input("Начальное приближение x0: ")
+        y0 = safe_float_input("Начальное приближение y0: ")
+        eps = safe_float_input("Точность (ε): ")
         return x0, y0, eps
 
 
@@ -17,15 +25,14 @@ def input_from_file(single=True, filename='data/input.txt'):
     try:
         with open(filename, 'r') as file:
             lines = file.readlines()
+            # Убираем пробелы и заменяем запятую на точку
+            values = [float(line.strip().replace(',', '.')) for line in lines]
+
             if single:
-                a = float(lines[0])
-                b = float(lines[1])
-                eps = float(lines[2])
+                a, b, eps = values[0], values[1], values[2]
                 return a, b, eps
             else:
-                x0 = float(lines[0])
-                y0 = float(lines[1])
-                eps = float(lines[2])
+                x0, y0, eps = values[0], values[1], values[2]
                 return x0, y0, eps
     except Exception as e:
         print(f"Ошибка при чтении файла: {e}")
